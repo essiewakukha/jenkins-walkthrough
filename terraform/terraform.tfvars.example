@@ -1,0 +1,10 @@
+# Copy this file to terraform.tfvars and update with your values
+
+aws_region   = "us-east-1"
+project_name = "jenkins-walkthrough"
+environment  = "dev"
+
+# IMPORTANT: Change this to a unique globally unique bucket name
+# S3 bucket names must be globally unique across all AWS accounts
+# Format suggestion: jenkins-walkthrough-demo-YYYMMDD-RANDOMSTRING
+bucket_name = "jenkins-walkthrough-demo-20260409-abc123"
