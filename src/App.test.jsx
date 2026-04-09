@@ -7,7 +7,7 @@ describe('App', () => {
 
     expect(
       screen.getByRole('heading', {
-        name: /one focused page for your next launch/i,
+        name: /one focused class ready for launch/i,
       }),
     ).toBeInTheDocument()
 
@@ -16,8 +16,8 @@ describe('App', () => {
     ).toHaveAttribute('href', '#contact')
 
     expect(
-      screen.getByRole('link', { name: /hello@northstar.test/i }),
-    ).toHaveAttribute('href', 'mailto:hello@northstar.test')
+      screen.getByRole('link', { name: /hello@devops13.test/i }),
+    ).toHaveAttribute('href', 'mailto:hello@devops13.test')
   })
 
   it('renders the three feature cards', () => {
