@@ -1,0 +1,18 @@
+# Local Backend Configuration (Current Setup)
+#
+# This is the default configuration already in main.tf
+# State is stored locally on your machine
+
+terraform {
+  backend "local" {
+    path = "terraform.tfstate"
+  }
+}
+
+# Notes:
+# - States are created in the same directory from which Terraform is run
+# - Perfect for personal projects and learning
+# - Not suitable for team collaboration
+# - Not recommended for production
+#
+# To use this, ensure it's in your main.tf terraform block
