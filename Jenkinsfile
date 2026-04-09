@@ -54,7 +54,7 @@ pipeline {
         
         stage('Deploy to S3') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'aws-deploy-credentials', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                withCredentials([[\$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-deploy-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                     sh '''
                         export AWS_DEFAULT_REGION=${AWS_REGION}
                         echo "Uploading files to S3..."
@@ -67,7 +67,7 @@ pipeline {
         
         stage('Invalidate CloudFront Cache') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'aws-deploy-credentials', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                withCredentials([[\$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-deploy-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                     sh '''
                         export AWS_DEFAULT_REGION=${AWS_REGION}
                         echo "Invalidating CloudFront cache..."
