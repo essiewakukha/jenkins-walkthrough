@@ -1,0 +1,21 @@
+# Terraform state files
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+.terraform.lock.hcl
+.terraform/
+
+# Terraform variables
+terraform.tfvars
+!terraform.tfvars.example
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# AWS outputs (contains credentials!)
+outputs.json
+terraform_outputs.json
