@@ -1,8 +1,8 @@
 pipeline {
     agent any
 
-    tools{
-        npm 'npm'
+    tools {
+        nodejs 'NodeJS'
     }
     
     environment {
