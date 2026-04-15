@@ -6,22 +6,23 @@ pipeline {
     }
     
     environment {
-        // AWS credentials configured in Jenkins
+        // AWS credentials configured in Jenkins. Make sure to replace 'aws-deploy-credentials' with the actual ID of your credentials in Jenkins.git 
         AWS_CREDENTIALS = credentials('aws-deploy-credentials')
-        AWS_REGION = 'us-east-1'
+        AWS_REGION = 'us-west-2'
         
         // Update these with values from: terraform output
-        S3_BUCKET = 'jenkins-walkthrough-demo-20260409-abc123'  // Change to your bucket
-        CLOUDFRONT_DISTRIBUTION_ID = 'E3EAE5FB8NGEQD' // Change to your distribution ID
+        S3_BUCKET = 'esther-devops-bucket-2026'  // Change to your bucket
+        CLOUDFRONT_DISTRIBUTION_ID = 'E38JMDHCNCGA6Q' // Change to your distribution ID
     }
     
     stages {
         stage('Clone repo') {
             steps {
-                git branch: 'master', url:'https://github.com/kadimasum/jenkins-walkthrough'
-                echo "Code checked out from ${GIT_BRANCH}"
+                git branch: 'master', url:'https://github.com/essiewakukha/jenkins-walkthrough'
+                echo "Code checked out from ${echo "Code checked out from ${env.BRANCH_NAME}"}"
             }
         }
+
         
         stage('Install Dependencies') {
             steps {
@@ -53,17 +54,22 @@ pipeline {
         }
         
         stage('Deploy to S3') {
-            steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-deploy-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-                    sh '''
-                        export AWS_DEFAULT_REGION=${AWS_REGION}
-                        echo "Uploading files to S3..."
-                        aws s3 sync dist/ s3://${S3_BUCKET}/ --delete --cache-control "max-age=3600" --exclude ".git*"
-                        echo "Files uploaded to S3"
-                    '''
-                }
-            }
+    steps {
+        withCredentials([
+            [$class: 'AmazonWebServicesCredentialsBinding',
+             credentialsId: 'aws-deploy-credentials',
+             accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+             secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']
+        ]) {
+            sh '''
+                export AWS_DEFAULT_REGION=${AWS_REGION}
+                echo "Deploying to S3..."
+                aws s3 sync dist/ s3://${S3_BUCKET} 
+                echo "Deployment complete"
+            '''
         }
+    }
+}
         
         stage('Invalidate CloudFront Cache') {
             steps {
