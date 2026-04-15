@@ -12,7 +12,7 @@ pipeline {
         
         // Update these with values from: terraform output
         S3_BUCKET = 'esther-devops-bucket-2026'  // Change to your bucket
-        CLOUDFRONT_DISTRIBUTION_ID = 'E38JMDHCNCGA6Q' // Change to your distribution ID
+        CLOUDFRONT_DISTRIBUTION_ID = 'E38JMDHCNCGA6Q' // Change to your distribution ID, triggering a cache invalidation after deployment
     }
     
     stages {
